@@ -1,0 +1,6 @@
+datasets
+sentence-transformers
+psycopg[binary]
+pgvector
+mlflow
+python-dotenv
