@@ -25,17 +25,17 @@ def retrieve(conn, question: str, k: int = K):
     q_vec = embedder.encode("query: " + question, normalize_embeddings=True)
     return conn.execute(
         """
-        SELECT chunk_id, title, text
+        SELECT chunk_id, title, text, 1 - (embedding <=> %(q)s) AS score
         FROM chunks
-        ORDER BY embedding <=> %s
-        LIMIT %s
+        ORDER BY embedding <=> %(q)s
+        LIMIT %(k)s
         """,
-        (q_vec, k),
+        {"q": q_vec,"k": k},
     ).fetchall()
 
 
 def build_user_message(question: str, chunks) -> str:
-    sources = "\n\n".join(f"[{cid}] ({title})\n{text}" for cid, title, text in chunks)
+    sources = "\n\n".join(f"[{cid}] ({title})\n{text}" for cid, title, text, _ in chunks)
     return f"Sources: \n{sources}\n\nQuestuion: {question}"
 
 
@@ -74,6 +74,7 @@ def ask(conn, question: str) -> dict:
         "raw": reply,
         "seconds": time.perf_counter() - start,
         "retrieved": [c[0] for c in chunks],
+        "top_score": chunks[0][3]
     }
 
 
