@@ -30,8 +30,8 @@ with psycopg.connect(os.environ["DATABASE_URL"]) as conn:
     register_vector(conn)
     for question, gold in tests:
         print(f"\n KÉRDÉS: {question} (helyes: {gold})")
-        for rank, (chunk_id, passsage_id, title, score) in enumerate(search(conn, question), start=1):
-            mark = " <-- HELYES" if passsage_id == gold else ""
+        for rank, (chunk_id, passage_id, title, score) in enumerate(search(conn, question), start=1):
+            mark = " <-- HELYES" if passage_id == gold else ""
             print(f" {rank}. {score:.3f} {chunk_id} {title}{mark}")
 
     # keresés viszgálata indexeléshez: 

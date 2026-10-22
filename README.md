@@ -15,7 +15,7 @@ Everything runs locally on my laptop: PostgreSQL with pgvector for search, a mul
 
 ## Why search alone cannot catch unanswerable questions
 
-SQuAD 2.0 has questions that look answerable from a paragraph, but are not. An example from the data:
+SQuAD 2.0 has questions that look answerable from a paragraph, but are not. An example from the data (paragraph shortened):
 
 > **Paragraph:** The Normans gave their name to Normandy in the **10th and 11th centuries**.
 > **Question:** Who gave their name to Normandy in the **1000s and 1100s**?
@@ -152,6 +152,12 @@ src/grounded_qa/
   metrics.py         SQuAD exact match and F1
   eval_rag.py        end-to-end evaluation, logged to MLflow
   analyze_rag.py     threshold sweep and error analysis
+
+explore/             small scripts behind some of the numbers above
+  explore_data.py    dataset statistics and a sample paragraph
+  check_model.py     embedding model token limit and dimensions
+  try_similarity.py  the Normandy similarity test
+  llm_hello.py       first LLM call, thinking mode on vs off
 ```
 
 ## What I want to do next
@@ -164,3 +170,13 @@ src/grounded_qa/
 - [ ] Compare e5-small with e5-base
 - [ ] Notebook with score distributions and the threshold trade-off curve
 - [ ] Hungarian evaluation set
+
+## Credits
+
+- **Data:** [SQuAD 2.0](https://rajpurkar.github.io/SQuAD-explorer/) by Pranav Rajpurkar, Robin Jia and Percy Liang, from the paper [Know What You Don't Know: Unanswerable Questions for SQuAD](https://arxiv.org/abs/1806.03822) (ACL 2018). Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The example paragraph and questions in this README are taken from it; the paragraph is shortened.
+- **Embedding model:** [intfloat/multilingual-e5-small](https://huggingface.co/intfloat/multilingual-e5-small) (MIT).
+- **LLM:** [Qwen3 8B](https://huggingface.co/Qwen/Qwen3-8B) (Apache 2.0), served by [Ollama](https://ollama.com).
+
+## License
+
+Code: MIT (see [LICENSE](LICENSE)). SQuAD 2.0 excerpts: CC BY-SA 4.0.

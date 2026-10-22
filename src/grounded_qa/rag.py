@@ -36,7 +36,7 @@ def retrieve(conn, question: str, k: int = K):
 
 def build_user_message(question: str, chunks) -> str:
     sources = "\n\n".join(f"[{cid}] ({title})\n{text}" for cid, title, text, _ in chunks)
-    return f"Sources: \n{sources}\n\nQuestuion: {question}"
+    return f"Sources: \n{sources}\n\nQuestion: {question}"
 
 
 def parse(reply: str):
