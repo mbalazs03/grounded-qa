@@ -17,10 +17,10 @@ Everything runs locally on my laptop: PostgreSQL with pgvector for search, a mul
 
 SQuAD 2.0 has questions that look answerable from a paragraph, but are not. An example from the data (paragraph shortened):
 
-> **Paragraph:** The Normans gave their name to Normandy in the **10th and 11th centuries**.
+> **Paragraph:** The Normans gave their name to Normandy, a region in France, in the **10th and 11th centuries**.
 > **Question:** Who gave their name to Normandy in the **1000s and 1100s**?
 
-The 10th and 11th centuries are the 900s and 1000s, so the paragraph does not answer the question. Still, the embedding model scores this question as more similar to the paragraph (0.906) than a real question about it (0.889). The LLM answers "The Normans".
+The 10th and 11th centuries are the 900s and 1000s, so the paragraph does not answer the question. Still, the embedding model scores this question as more similar to this sentence (0.906) than a real question about it (0.889). The LLM answers "The Normans".
 
 On the whole dataset it looks the same: search finds the paragraph for unanswerable questions almost as often as for answerable ones (Recall@5: 91.3% vs 95.1%). Search measures whether the topic is similar, not whether the text supports an answer. So the decision to abstain has to come from a later step.
 
